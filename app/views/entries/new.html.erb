@@ -1,0 +1,97 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    color: #333;
+    
+  }
+
+  form {
+    display: inline-block;
+    text-align: left;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-label {
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .form-label:hover {
+    color: #007bff;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 13px;
+    
+  }
+  .back-btn{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 42px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 13px;
+    position: relative;
+    right: 10vw;
+    top: 2px;
+  }
+
+</style>
+
+<body>
+  <center>
+    <h1>Create new entry</h1>
+    <br><br>
+    <%= form_with(model: [User.first, @entry], url: user_entries_path(User.first), method: :post) do |form| %>
+
+      <div class="form-group">
+        <%= form.label :Summary, class: 'form-label' %><br>
+        <%= form.text_field :name, class: 'form-control', placeholder: 'Enter summary...' %>
+      </div>
+      <div class="form-group">
+        <%= form.label :Description, class: 'form-label' %><br>
+        <%= form.text_area :comments, class: 'form-control', placeholder: 'Enter description...' %>
+      </div>
+      <div class="form-group">
+        <%= form.label :Start_time, class: 'form-label' %><br>
+        <%= form.datetime_field :start_time, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= form.label :End_time, class: 'form-label' %><br>
+        <%= form.datetime_field :end_time, class: 'form-control' %>
+      </div>
+ 
+      <!-- Add more rating fields for other categories as needed -->
+      <br><br>
+      <%= form.submit 'Create Entry', class: 'btn btn-primary' %>
+    <% end %>
+      <%= link_to 'Back', root_path, class: 'back-btn' %>
+  </center>
+</body>

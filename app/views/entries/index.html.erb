@@ -1,0 +1,55 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+  }
+
+  .event {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+
+  .event h3 {
+    margin: 0;
+    color: #333;
+  }
+
+  .event p {
+    margin: 5px 0;
+  }
+
+  .create-button {
+    margin-top: 20px;
+  }
+</style>
+
+<body>
+  <h1>Google Calendar Events (Entries)</h1>
+  <hr>
+  <% @events.items.each do |event| %>
+    <div class="event">
+      <h3>Summary: <%= event.summary %></h3>
+      <p>Start time: <%= event.start.date_time %></p>
+      <p>End time: <%= event.end.date_time %></p>
+      <p>Description: <%= event.description %></p>
+      <!-- Display other event information as needed -->
+    </div>
+    <hr>
+  <% end %>
+
+  <%= link_to 'Create New Entry', new_user_entry_path(User.first), class: 'create-button' %>
+</body>
