@@ -1,30 +1,32 @@
 class EntriesController < ApplicationController
   require 'google/apis/calendar_v3'
-  CALENDAR_ID = 'saifuddin.s@preciousinfosystem.com'
-  
+  CREATOR_USER = User.first
+
   def index 
-    google_calendar_service = GoogleCalendarService.new
+    google_calendar_service = GoogleCalendarService.new(CREATOR_USER)
     @events = google_calendar_service.list_events
   end
-  
+
   def new
-    @entry = User.first.entries.new
+    @entry = CREATOR_USER.entries.new
   end
+
   def create
-    @entry = User.first.entries.new(entry_params)
-    
+    # entry_params_with_time_conversion = entry_params
+    # entry_params_with_time_conversion[:start_time] = entry_params[:start_time].in_time_zone('Asia/Kolkata').to_datetime
+    # entry_params_with_time_conversion[:end_time] = entry_params[:end_time].in_time_zone('Asia/Kolkata').to_datetime
+    @entry = CREATOR_USER.entries.new(entry_params)
+  
     if @entry.save
-      calendar_service = GoogleCalendarService.new
+      calendar_service = GoogleCalendarService.new(CREATOR_USER)
       calendar_service.create_event(@entry)
       redirect_to root_path, notice: 'Event created successfully!'
-      byebug
     else
       render :new
     end
   end
   
   private
-
   def entry_params
     params.require(:entry).permit(:start_time, :end_time, :summary, :description)
   end
