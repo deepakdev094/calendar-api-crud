@@ -12,9 +12,6 @@ class EntriesController < ApplicationController
   end
 
   def create
-    # entry_params_with_time_conversion = entry_params
-    # entry_params_with_time_conversion[:start_time] = entry_params[:start_time].in_time_zone('Asia/Kolkata').to_datetime
-    # entry_params_with_time_conversion[:end_time] = entry_params[:end_time].in_time_zone('Asia/Kolkata').to_datetime
     @entry = CREATOR_USER.entries.new(entry_params)
   
     if @entry.save
